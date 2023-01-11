@@ -1,0 +1,55 @@
+#day1 of #100daysofcodechallenge #vitbhopal #vitbhopalgaming
+
+📌Java Script Programmng
+
+📌Topic:-Generate Parentheses
+
+GithubLink:-https://lnkd.in/dJ-dXvWk
+
+QuestionLink:https://leetcode.com/problems/generate-parentheses/description/
+
+📌Description:-Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+📌Testcase 1:-
+
+Input: n = 3
+
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+📌Testcase 2:-
+
+Input: n = 1
+
+Output: ["()"]
+
+📌Constraints:-
+
+1 <= n <= 8
+
+📌Code:-
+
+var generateParenthesis = function(n) {
+    const stack = []
+    const result = []
+    
+    const backtrack = (open, close) => {
+        if(open == close && open == n){
+            result.push(stack.join(''))
+            return
+        }
+        if(open < n) {
+            stack.push("(")
+            backtrack(open + 1, close)
+            stack.pop()
+        }
+        if(close < open){
+            stack.push(")")
+            backtrack(open, close + 1)
+            stack.pop()
+        }
+    }
+    
+    backtrack(0, 0)
+	
+    return result
+};
