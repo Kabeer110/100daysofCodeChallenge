@@ -1,0 +1,47 @@
+#day3 of #100daysofcodechallenge #vitbhopal #vitbhopalgaming
+📌Java Script Programming
+📌Topic:- Multiply Strings
+GithubLink:-https://lnkd.in/dTa-H3ae
+QuestionLink:- https://leetcode.com/problems/multiply-strings/
+📌Description:- Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+📌Testcase 1:-
+Input: num1 = "2", num2 = "3"
+Output: "6"
+📌Testcase 2:-
+Input: num1 = "123", num2 = "456"
+Output: "56088"
+
+📌Constraints:-
+1 <= num1.length, num2.length <= 200
+num1 and num2 consist of digits only.
+Both num1 and num2 do not contain any leading zero, except the number 0 itself.
+📌Code:-
+
+function multiply(a, b) {
+    if ([a, b].includes(`0`)) {
+        return `0`
+    }
+
+    // get length of a, b
+    const [lenA, lenB] = [a.length, b.length]
+
+    // set nums for calculate
+    let nums = Array(lenA + lenB).fill(0), index = nums.length - 1
+
+    // reverse loop from a
+    for (let i = lenA - 1; i >= 0; i--) {
+        let key = index--
+
+        // reverse loop from b
+        for (let j = lenB - 1; j >= 0; j--) {
+            const v = +a[i] * +b[j] + nums[key]
+
+            nums[key] = v % 10
+            // carry
+            nums[--key] += Math.floor(v / 10)
+        }
+    }
+
+    
+    return nums.join('').replace(/^0+/, '')
+}
