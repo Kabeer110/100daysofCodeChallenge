@@ -1,0 +1,45 @@
+#day5 of #100daysofcodechallenge #vitbhopal #vitbhopalgaming
+📌Java Script Programming
+📌Topic:- Palindrome Partitioning
+QuestionLink:- https://leetcode.com/problems/palindrome-partitioning/
+📌Description:- Given a string s, partition s such that every substring of the partition is a 
+palindrome. Return all possible palindrome partitioning of s.
+📌Testcase 1:-
+Input: s = "aab"
+Output: [["a","a","b"],["aa","b"]]
+📌Testcase 2:-
+Input: s = "a"
+Output: [["a"]]
+📌Constraints:-
+1 <= s.length <= 16
+s contains only lowercase English letters.
+📌Code:-
+
+var partition = function(s) {
+    
+    function isPalindrome(str) {
+        let left = 0, right = str.length-1;
+        
+        while(left < right) {
+            if(str[left] !== str[right]) return false
+            left++;
+            right--;
+        }
+        return true;
+    }
+    
+    const result = [];
+    
+    function permute(arr, str) {
+        if(!str.length) result.push(arr);
+        
+        for(let i = 1; i <= str.length; i++) {
+            const subStr = str.slice(0, i);
+            if(isPalindrome(subStr)) {
+                permute([...arr, subStr], str.slice(i));
+            }
+        }
+    }
+    permute([], s);
+    return result;
+};
