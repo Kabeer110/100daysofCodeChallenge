@@ -1,0 +1,48 @@
+#day7 of #100daysofcodechallenge #vitbhopal #vitbhopalgaming
+📌Java Script Programming
+📌Topic:- Letter Combinations of a Phone Number
+QuestionLink:- https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+📌Description:- Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
+📌Testcase 1:-
+"Input: digits = "23"
+Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+📌Testcase 2:-
+Input: digits = ""
+Output: []
+📌Testcase 3:-
+Input: digits = "2"
+Output: ["a","b","c"]
+📌Constraints:-
+0 <= digits.length <= 4
+digits[i] is a digit in the range ['2', '9'].
+📌Code:-
+
+let letterCombinations = function(digits) {
+    if(!digits.length) return [];
+    
+    let map = {
+        2: ['a', 'b', 'c'],
+        3: ['d', 'e', 'f'],
+        4: ['g', 'h', 'i'],
+        5: ['j', 'k', 'l'],
+        6: ['m', 'n', 'o'],
+        7: ['p', 'q', 'r', 's'],
+        8: ['t', 'u', 'v'],
+        9: ['w', 'x', 'y', 'z'],
+    }
+    
+    let result = [];
+    
+    function permute(string, index) {
+        if(index === digits.length) {
+            result.push(string);
+            return;
+        }
+        
+        for(let x of map[digits[index]]) {
+            permute(string+x, index+1);
+        }
+    }
+    permute('', 0);
+    return result;
+};
