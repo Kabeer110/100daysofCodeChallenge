@@ -1,0 +1,36 @@
+#day16 of #100daysofcodechallenge #vitbhopal #vitbhopalgaming
+📌Java Script Programming
+📌Topic:- Factorial Trailing Zeroes
+QuestionLink:- https://leetcode.com/problems/factorial-trailing-zeroes/
+📌Description:- Given an integer n, return the number of trailing zeroes in n!.
+📌Testcase 1:-
+Input: n = 3
+Output: 0
+Explanation: 3! = 6, no trailing zero.
+📌Testcase 2:-
+Input: n = 5
+Output: 1
+Explanation: 5! = 120, one trailing zero.
+📌Testcase 3:-
+Input: n = 0
+Output: 0
+📌Constraints:-
+0 <= n <= 104
+📌Code:-
+
+var trailingZeroes = function(n) {
+    let count = 0;
+    function getMaxPov5(k) {
+        let max = 0;
+        while ((k / 5) % 1 === 0) {
+            max++;
+            k /= 5;
+        }
+        return max;
+    }
+	// check only multipliers we can divide by 5
+    for (let i = 5; i <= n; i += 5) {
+        count += getMaxPov5(i);
+    }
+    return count;
+};
