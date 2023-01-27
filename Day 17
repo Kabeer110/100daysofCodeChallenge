@@ -1,0 +1,54 @@
+#day17 of #100daysofcodechallenge #vitbhopal #vitbhopalgaming
+📌Java Script Programming
+📌Topic:- Max Points on a Line
+GithubLink:- https://lnkd.in/dcxqUaDe
+QuestionLink:- https://leetcode.com/problems/max-points-on-a-line/
+📌Description:- Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane, return the maximum number of points that lie on the same straight line.
+📌Testcase 1:-
+Input: points = [[1,1],[2,2],[3,3]]
+Output: 3
+📌Testcase 2:-
+Input: points = [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
+Output: 4
+📌Constraints:-
+1 <= points.length <= 300
+points[i].length == 2
+-104 <= xi, yi <= 104
+All the points are unique.
+📌Code:-
+
+var maxPoints = function(points) {
+    if (points.length === 1) return 1 // edge case
+    const slopes = {} // hashmap - {string: set}
+    let maxSet = 0
+
+    for (let i = 0; i < points.length - 1; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+            const [x1, y1] = points[i]
+            const [x2, y2] = points[j]
+
+            let slope, b
+
+            if (x2 - x1 === 0) {
+                slope = 'undefined'
+                b = x1 // or x2, the x values are the same
+            } else { 
+                slope = (y2 - y1) / (x2 - x1)
+                b = y1 - x1 * slope
+            }
+            const str = `${slope},${b}`
+            if (str in slopes) {
+                slopes[str].add(`${x1},${y1}`)
+                slopes[str].add(`${x2},${y2}`)
+                maxSet = Math.max(maxSet, slopes[str].size)
+            } else {
+                slopes[str] = new Set()
+                slopes[str].add(`${x1},${y1}`)
+                slopes[str].add(`${x2},${y2}`)
+                maxSet = Math.max(maxSet, slopes[str].size)
+            }
+        }
+    }
+
+    return maxSet
+};
