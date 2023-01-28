@@ -1,0 +1,51 @@
+#day18 of #100daysofcodechallenge #vitbhopal #vitbhopalgaming
+📌Java Script Programming
+📌Topic:- Substring with Concatenation of All Words
+GithubLink:- https://lnkd.in/dserswG2
+QuestionLink:- https://leetcode.com/problems/substring-with-concatenation-of-all-words/
+📌Description:- You are given a string s and an array of strings words. All the strings of words are of the same length.
+A concatenated substring in s is a substring that contains all the strings of any permutation of words concatenated.
+📌Testcase 1:-
+Input: s = "barfoothefoobarman", words = ["foo","bar"]
+Output: [0,9]
+Explanation: Since words.length == 2 and words[i].length == 3, the concatenated substring has to be of length 6.The substring starting at 0 is "barfoo". It is the concatenation of ["bar","foo"] which is a permutation of words.The substring starting at 9 is "foobar". It is the concatenation of ["foo","bar"] which is a permutation of words.The output order does not matter. Returning [9,0] is fine too.
+📌Testcase 2:-
+Input: s = "wordgoodgoodgoodbestword", words = ["word","good","best","word"]
+Output: []
+Explanation: Since words.length == 4 and words[i].length == 4, the concatenated substring has to be of length 16.There is no substring of length 16 is s that is equal to the concatenation of any permutation of words.We return an empty array.
+📌Testcase 3:-
+Input: s = "barfoofoobarthefoobarman", words = ["bar","foo","the"]
+Output: [6,9,12]
+Explanation: Since words.length == 3 and words[i].length == 3, the concatenated substring has to be of length 9.The substring starting at 6 is "foobarthe". It is the concatenation of ["foo","bar","the"] which is a permutation of words.The substring starting at 9 is "barthefoo". It is the concatenation of ["bar","the","foo"] which is a permutation of words.The substring starting at 12 is "thefoobar". It is the concatenation of ["the","foo","bar"] which is a permutation of words.
+📌Constraints:-
+1 <= s.length <= 104
+1 <= words.length <= 5000
+1 <= words[i].length <= 30
+s and words[i] consist of lowercase English letters.
+📌Code:-
+
+var findSubstring = function(s, words) {
+   let m2 = new Map()
+ for(let i = 0; i< words.length; i++){
+     m2.set(words[i] , (m2.get(words[i]) || 0 ) + 1)
+ }
+    let ans= []
+    let m1  = new Map()
+ let len =  words.length  * words[0].length
+for(let i = 0  ; i< s.length-len+1; i++){
+ let curr = s.substring(i, i+len)
+     if(check(curr, m2, words[0].length)) ans.push(i)
+}
+return ans
+}
+    function check(curr, m2, length){
+        let m1 =  new Map()
+        for(let i = 0; i< curr.length; i+=length){
+            let sub = curr.substring(i, i+length)
+            m1.set(sub, (m1.get(sub)|| 0 ) +1 )
+        }
+          for(let [key, val] of  m2){
+            if(m1.get(key) !== m2.get(key)) return false
+        }
+        return true
+    }
